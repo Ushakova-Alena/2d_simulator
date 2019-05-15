@@ -1,0 +1,9 @@
+.ipynb_checkpoints
+.Rproj.user
+*~
+*.obj
+*.exe
+*.o
+*.dll
+.Rhistory
+.vscode
