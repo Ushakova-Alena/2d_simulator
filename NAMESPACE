@@ -1,3 +1,0 @@
-useDynLib(MathBioSim, .registration=TRUE)
-exportPattern("^[[:alnum:]]+")
-importFrom(Rcpp, evalCpp)

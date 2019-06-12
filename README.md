@@ -1,44 +1,28 @@
-# RcppSim
-Rcpp interface for c++ based poisson simulator
+# Computer simulation of Ulf Dieckmann's model of stationary biological community.
 
-Requires Rtools installed
+### Algorithm description
+Simulations are written using C++11. Data processing is implemented on Python 3.
 
-R packages: Rcpp, BH, devtools
+There are two versions of simulations.
 
-Install with:
+The first one implements the algorithm based on the plane discretization idea. There might be arbitrary number of individuals in every cell of the grid. One step of the algorithm consists of computing birth and death probabilities matrices of individuals. Now birth and death kernels are considered to be Gaussian with zero expectation, arbitrary variance (can be set in the code parameters) and normalizing factor.
 
-devtools::install_github("YegorGalkin/RcppSim",quick=TRUE,local=FALSE)
+The second implementation based on the Poisson process idea. We simulate continiuos process via Poisson process.
 
+### Usage
+To run the first implementation for one dimention case run
+```
+g++ sim_one_dim.cpp -o sim -std=c++11 -O3
+./sim [field size] [discretization] [iterations] [initial population] [wall type]"
+```
+First implementation for two dimentions case currently doesn't work correctly at the moment (sim_two_dim.cpp).
 
-How to get interactive version running:
+To run the second implementation (one and two dimensions cases are in one file) firstly download [Boost](http://www.boost.org), unarchive it and add Boost folder to compiler's include directories. Then run
+```
+g++ sim_poison.cpp -o sim -std=c++11
+```
 
-Install docker
-
-Run in console, WORKING_DIR is a diretory to be mounted in jupyter home dir:
-
-docker run -p 8888:8888 -v WORKING_DIR:/home/jovyan/work jupyter/datascience-notebook
-
-Copy one time token
-
-Login on http://localhost:8888
-
-Paste one time token
-
-Run in R kernel:
-
-install.packages("Rcpp")
-
-require(devtools)
-
-require(Rcpp)
-
-require(BH)
-
-require(testthat)
-
-options(unzip = "internal")
-
-devtools::install_github("YegorGalkin/RcppSim",quick=TRUE,local=FALSE)
-
-Thats it, simulator is good to go!
-# 2d_simulator
+### Unimplemented
+ * Arbitrary birth and death kernels option
+ * Multispecies models
+ * Small issues (watch code comments)
